@@ -1,7 +1,7 @@
 package com.jeeproject.videocall;
 
-import com.jeeproject.videocall.user.User;
-import com.jeeproject.videocall.user.UserService;
+import com.jeeproject.videocall.model.User;
+import com.jeeproject.videocall.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,26 +15,25 @@ public class VideocallApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(UserService userService) {
-		return args -> {
-			userService.register(User.builder()
-					.username("Salem")
-					.email("salem@mail.com")
-					.password("test")
-					.build());
+public CommandLineRunner commandLineRunner(UserService userService) {
+    return args -> {
+        userService.registerUser(User.builder()  // Changed from register to registerUser
+                .username("Salem")
+                .email("salem@mail.com")
+                .password("test")
+                .build());
 
-			userService.register(User.builder()
-					.username("Mahdi")
-					.email("mahdi@mail.com")
-					.password("test")
-					.build());
+        userService.registerUser(User.builder()  // Changed from register to registerUser
+                .username("Mahdi")
+                .email("mahdi@mail.com")
+                .password("test")
+                .build());
 
-			userService.register(User.builder()
-					.username("Ayman")
-					.email("ayman@mail.com")
-					.password("test")
-					.build());
-		};
-	}
-
+        userService.registerUser(User.builder()  // Changed from register to registerUser
+                .username("Ayman")
+                .email("ayman@mail.com")
+                .password("test")
+                .build());
+    };
+}
 }

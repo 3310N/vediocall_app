@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "crypto-js": "^4.2.0",
+    "zego-express-engine-webrtc": "^3.7.4"
+  }
+}

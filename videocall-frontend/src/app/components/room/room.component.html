@@ -1,0 +1,45 @@
+<div class="room-container">
+  <div class="video-grid">
+    <div class="video-container local-video">
+      <video id="localVideo" autoplay playsinline muted></video>
+      <div class="video-overlay">
+        <span class="participant-name">You</span>
+      </div>
+    </div>
+    
+    <div class="video-container" *ngFor="let participant of room?.participants">
+      <video [id]="'video-' + participant.id" autoplay playsinline 
+             *ngIf="participant.id !== currentUser?.id"></video>
+      <div class="video-overlay">
+        <span class="participant-name">{{ participant.username }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button mat-fab color="primary" (click)="toggleAudio()">
+      <mat-icon>mic</mat-icon>
+    </button>
+    <button mat-fab color="primary" (click)="toggleVideo()">
+      <mat-icon>videocam</mat-icon>
+    </button>
+    <button mat-fab color="warn" (click)="leaveRoom()">
+      <mat-icon>call_end</mat-icon>
+    </button>
+  </div>
+
+  <mat-drawer-container class="participants-drawer">
+    <mat-drawer mode="side" opened>
+      <h3>Participants</h3>
+      <mat-list>
+        <mat-list-item *ngFor="let user of users">
+          <mat-icon matListItemIcon [ngClass]="{'online': user.status === 'ONLINE'}">
+            person
+          </mat-icon>
+          <span matListItemTitle>{{ user.username }}</span>
+          <span matListItemLine>{{ user.status }}</span>
+        </mat-list-item>
+      </mat-list>
+    </mat-drawer>
+  </mat-drawer-container>
+</div>
