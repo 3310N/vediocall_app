@@ -1,157 +1,437 @@
-body {
+* {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f1f1f1; /* Change the background color of the page */
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .container {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  background-color: #ffffff;
+}
+
+/* Header Styles */
+header {
+  background-color: #ffffff;
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 100;
+}
+
+header > * {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Hero Section */
+.hero {
+  padding: 8rem 0 4rem;
+  background-color: #e3f2fd;
+  text-align: center;
+  margin: 0 -20px;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  color: #212529;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
-.image-container,
-.connected-users,
-.new-meeting {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+/* Features Section */
+.features {
+  padding: 4rem 0;
+  background-color: white;
+  margin: 0 -20px;
 }
 
-.image-container {
+.features-grid {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.feature-card {
   flex: 1;
-  max-width: 800px;
-}
-
-.connected-users {
-  flex: 1;
+  padding: 2rem;
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
   max-width: 350px;
 }
 
-.image-container img {
-  max-width: 100%;
-  height: auto;
+.feature-card:hover {
+  transform: translateY(-5px);
 }
 
-.connected-users h2 {
-  margin-bottom: 20px;
-  font-size: 22px; /* Increase the font size for the title */
+.feature-card i {
+  font-size: 2.5rem;
+  color: #007bff;
+  margin-bottom: 1rem;
 }
 
-.connected-users ul {
-  list-style: none;
-  padding: 0;
+/* How It Works Section */
+.how-it-works {
+  padding: 4rem 0;
+  text-align: center;
+  background-color: white;
+  margin: 0 -20px;
 }
 
-.connected-users li {
+.how-it-works h2 {
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  color: #212529;
+}
+
+.steps {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  font-size: 25px;
+  justify-content: center;
+  gap: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-.connected-users li i {
-  margin-right: 10px;
-  font-size: 25px;
-}
-
-/* Add a bulb icon after each connected user */
-.connected-users li i.fa-lightbulb-o {
-  font-size: 25px;
-}
-
-/* Online status - green bulb */
-.connected-users li i.online {
-  color: #02fb10;
-}
-
-/* Offline status - red bulb */
-.connected-users li i.offline {
-  color: #e61876;
-}
-
-/* Add a separator after each connected user */
-.connected-users li:not(:last-child) {
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 5px;
-}
-
-/* Optional separation between blocks */
-.container > div:not(:last-child) {
-  margin-right: 20px;
-}
-
-div.main {
-  display: flex;
-  flex-direction: column;
-}
-
-.new-meeting {
-  margin-bottom: 20px;
-}
-
-.new-meeting button {
-  padding: 10px 20px;
-  background-color: #007BFF; /* Blue background color */
-  color: #fff; /* Text color */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
-  width: 100%;
-}
-
-.new-meeting button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
-}
-
-.join-meeting {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.join-meeting input[type="text"] {
+.step {
   flex: 1;
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  max-width: 300px;
+  position: relative;
 }
 
-.join-meeting button {
-  margin-left: 10px;
-  padding: 8px 16px;
-  background-color: #4CAF50; /* Green background color */
-  color: #fff; /* Text color */
+.step:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -2.5rem;
+  top: 2rem;
+  font-size: 2rem;
+  color: #007bff;
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.step h3 {
+  margin-bottom: 1rem;
+  color: #212529;
+  font-size: 1.5rem;
+}
+
+.step p {
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Stats Section */
+.stats {
+  padding: 4rem 0;
+  background-color: #e3f2fd;
+  margin: 0 -20px;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+  max-width: 200px;
+  position: relative;
+}
+
+.stat-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: -3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 50px;
+  background-color: #007bff;
+}
+
+.stat-item h3 {
+  font-size: 3.5rem;
+  color: #007bff;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.stat-item p {
+  color: #666;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .stats-container {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .stat-item {
+    max-width: 100%;
+  }
+
+  .stat-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: auto;
+    bottom: -1.5rem;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 1px;
+  }
+}
+
+/* Footer */
+footer {
+  background-color: #f8f9fa;
+  padding: 4rem 0 1rem;
+  margin: 0 -20px;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+/* Button Styles */
+.primary-button {
+  background-color: #007bff;
+  color: white;
+  padding: 0.8rem 1.5rem;
   border: none;
   border-radius: 5px;
+  font-size: 1rem;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
 }
 
-.join-meeting button:hover {
-  background-color: #45a049; /* Darker green on hover */
+.primary-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#logoutBtn {
-  padding: 10px 20px;
-  background-color: #f44336; /* Red background color */
-  color: #fff; /* Text color */
+.secondary-button {
+  background-color: white;
+  color: #007bff;
+  padding: 0.8rem 1.5rem;
+  border: 2px solid #007bff;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.secondary-button:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-button {
+  background-color: #007bff;
+  color: white;
+  padding: 0.5rem 1rem;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
 }
 
-#logoutBtn:hover {
-  background-color: #d32f2f; /* Darker red on hover */
+.nav-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.nav-link {
+  color: #212529;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: #007bff;
+  background-color: #f8f9fa;
+}
+
+/* Join Meeting Input and Button */
+.join-section {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.meeting-input {
+  padding: 0.8rem;
+  border: 2px solid #e9ecef;
+  border-radius: 5px;
+  font-size: 1rem;
+  width: 200px;
+  transition: all 0.3s ease;
+}
+
+.meeting-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* Logo Style */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #007bff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.logo i {
+  font-size: 1.8rem;
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .features-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .feature-card {
+    width: 100%;
+  }
+
+  .stats-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .steps {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .step:not(:last-child)::after {
+    content: "↓";
+    position: absolute;
+    right: auto;
+    bottom: -2.5rem;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .step {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  .stat-item {
+    max-width: 100%;
+  }
 }

@@ -3,44 +3,61 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-index',
   standalone: true,
-  imports: [CommonModule, RouterModule, HttpClientModule],
+  imports: [CommonModule, RouterModule, HttpClientModule, FormsModule],
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent {
+  meetingId: string = '';
+  isLoggedIn: boolean = false;
+  currentUser: any = null;
+
   constructor(
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) {
+    this.isLoggedIn = this.authService.isLoggedIn();
+    if (this.isLoggedIn) {
+      this.currentUser = this.authService.getCurrentUser();
+    }
+  }
 
   startVideoCall() {
-    if (!this.authService.isLoggedIn()) {
+    if (!this.isLoggedIn) {
       this.router.navigate(['/login']);
       return;
     }
     this.router.navigate(['/videocall']);
   }
 
-  logout() {
-    this.authService.logout().subscribe({
-      next: () => {
-        this.router.navigate(['/login']);
-      },
-      error: (err) => {
-        console.error('Logout error:', err);
-      }
+  joinMeeting() {
+    if (!this.meetingId) {
+      return;
+    }
+    if (!this.isLoggedIn) {
+      this.router.navigate(['/login']);
+      return;
+    }
+    this.router.navigate(['/videocall'], { 
+      queryParams: { meetingId: this.meetingId }
     });
   }
 
-  get isLoggedIn(): boolean {
-    return this.authService.isLoggedIn();
-  }
-
-  get currentUser(): any {
-    return this.authService.getCurrentUser();
+  logout() {
+    this.authService.logout().subscribe({
+      next: () => {
+        this.isLoggedIn = false;
+        this.currentUser = null;
+        this.router.navigate(['/login']);
+      },
+      error: (error) => {
+        console.error('Logout error:', error);
+      }
+    });
   }
 }

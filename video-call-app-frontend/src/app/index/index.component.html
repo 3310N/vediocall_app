@@ -1,45 +1,129 @@
 <!-- src/app/index/index.component.html -->
 <div class="container">
   <header>
-    <h1>Welcome to Video Call App</h1>
+    <div class="logo">
+      <i class="fa fa-video-camera"></i>
+      <span>VideoMeet</span>
+    </div>
     <nav>
       <ng-container *ngIf="!isLoggedIn">
-        <a [routerLink]="['/login']">Login</a>
-        <a [routerLink]="['/register']">Register</a>
+        <a [routerLink]="['/login']" class="nav-link">Login</a>
+        <a [routerLink]="['/register']" class="nav-button">Get Started</a>
       </ng-container>
       <ng-container *ngIf="isLoggedIn">
-        <span>Welcome, {{ currentUser?.username }}</span>
-        <a href="javascript:void(0)" (click)="logout()">Logout</a>
+        <span class="user-welcome">Welcome, {{ currentUser?.username }}</span>
+        <a href="javascript:void(0)" (click)="logout()" class="nav-link">Logout</a>
       </ng-container>
     </nav>
   </header>
 
   <main>
-    <div class="hero">
-      <h2>Start a Video Call Now</h2>
-      <p>Connect with anyone, anywhere with our secure video calling platform.</p>
-      <button (click)="startVideoCall()" class="cta-button">
-        Start Video Call
-      </button>
-    </div>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Professional Video Meetings.<br>Now Free for Everyone</h1>
+        <p class="hero-subtitle">We re-engineered the service that we built for secure business meetings, VideoMeet, to make it free and available for all.</p>
+        
+        <div class="hero-actions" *ngIf="isLoggedIn">
+          <button (click)="startVideoCall()" class="primary-button">
+            <i class="fa fa-video-camera"></i>
+            New Meeting
+          </button>
+          <div class="join-section">
+            <input type="text" [(ngModel)]="meetingId" placeholder="Enter meeting code" class="meeting-input">
+            <button (click)="joinMeeting()" class="secondary-button">Join</button>
+          </div>
+        </div>
 
-    <div class="features">
-      <div class="feature">
-        <h3>High Quality Video</h3>
-        <p>Crystal clear video quality for the best experience.</p>
+        <div class="hero-actions" *ngIf="!isLoggedIn">
+          <a [routerLink]="['/register']" class="primary-button">Sign Up Free</a>
+          <a [routerLink]="['/login']" class="secondary-button">Login to Join</a>
+        </div>
       </div>
-      <div class="feature">
-        <h3>Secure Connection</h3>
-        <p>End-to-end encrypted calls for your privacy.</p>
+    </section>
+
+    <section class="features">
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fa fa-shield"></i>
+          <h3>Enterprise-Grade Security</h3>
+          <p>End-to-end encryption and advanced security features keep your meetings safe.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fa fa-clock-o"></i>
+          <h3>Crystal Clear Quality</h3>
+          <p>HD video and audio with adaptive quality for any network condition.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fa fa-users"></i>
+          <h3>Built for Teams</h3>
+          <p>Collaborate with team members with screen sharing and chat features.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fa fa-globe"></i>
+          <h3>Available Everywhere</h3>
+          <p>Join from any device - desktop, tablet, or mobile. No downloads needed.</p>
+        </div>
       </div>
-      <div class="feature">
-        <h3>Easy to Use</h3>
-        <p>Simple interface for hassle-free calls.</p>
+    </section>
+
+    <section class="stats">
+      <div class="stats-container">
+        <div class="stat-item">
+          <h3>300M+</h3>
+          <p>Daily Participants</p>
+        </div>
+        <div class="stat-item">
+          <h3>150+</h3>
+          <p>Countries</p>
+        </div>
+        <div class="stat-item">
+          <h3>99.9%</h3>
+          <p>Uptime</p>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <section class="how-it-works">
+      <h2>How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Sign Up</h3>
+          <p>Create your free account in seconds</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Start or Join</h3>
+          <p>Create a new meeting or join with a code</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Collaborate</h3>
+          <p>Enjoy HD video calls with your team</p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 Video Call App. All rights reserved.</p>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>VideoMeet</h4>
+        <p>Making video communication accessible for everyone.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <a href="#">About Us</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <a href="mailto:support@videomeet.com">supportvideomeet.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 VideoMeet. All rights reserved.</p>
+    </div>
   </footer>
 </div>
