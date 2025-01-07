@@ -13,32 +13,41 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  username: string = '';
+  name: string = '';
   email: string = '';
   password: string = '';
   confirmPassword: string = '';
   error: string = '';
+  agreeToTerms: boolean = false;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   onSubmit() {
+    if (!this.agreeToTerms) {
+      this.error = 'Please agree to the Terms & Privacy Policy';
+      return;
+    }
+
     if (this.password !== this.confirmPassword) {
       this.error = 'Passwords do not match';
       return;
     }
 
-    this.error = '';
-    this.authService.register(this.username, this.email, this.password).subscribe({
+    this.authService.register(this.name, this.email, this.password).subscribe({
       next: () => {
         this.router.navigate(['/login']);
       },
-      error: (err) => {
-        this.error = 'Registration failed. Please try again.';
-        console.error('Registration error:', err);
+      error: (error) => {
+        this.error = error.message || 'Registration failed';
       }
     });
+  }
+
+  isFormValid(): boolean {
+    return this.name.trim() !== '' && 
+           this.email.trim() !== '' && 
+           this.password.trim() !== '' && 
+           this.confirmPassword.trim() !== '' && 
+           this.agreeToTerms;
   }
 }

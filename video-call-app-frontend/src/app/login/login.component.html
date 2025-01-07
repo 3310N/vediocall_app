@@ -1,55 +1,79 @@
-<!-- src/app/login/login.component.html -->
+cd xv<!-- src/app/login/login.component.html -->
 <div class="container">
-  <div class="social-icons">
-    <h2>Welcome Back</h2>
-    <a href="#" target="_blank"><i class="fa fa-instagram"></i></a>
-    <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
-    <a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
-    <a href="#" target="_blank"><i class="fa fa-github"></i></a>
-  </div>
-  
-  <div class="login-container">
-    <h2>Login</h2>
-    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          [(ngModel)]="email"
-          required
-          email
-          #emailInput="ngModel"
-          placeholder="Enter your email"
-        >
-        <div *ngIf="emailInput.invalid && emailInput.touched" class="error-message">
-          Please enter a valid email address
+  <header>
+    <div class="logo">
+      <i class="fa fa-video-camera"></i>
+      <span>VideoMeet</span>
+    </div>
+    <nav>
+      <a [routerLink]="['/']" class="nav-link">Home</a>
+      <a [routerLink]="['/register']" class="nav-button">Sign Up</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="auth-container">
+      <div class="auth-box">
+        <h2>Welcome Back</h2>
+        <p class="auth-subtitle">Sign in to continue to VideoMeet</p>
+
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="auth-form">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <div class="input-group">
+              <i class="fa fa-envelope"></i>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                [(ngModel)]="email"
+                required
+                email
+                #emailInput="ngModel"
+                placeholder="Enter your email"
+              >
+            </div>
+            <div *ngIf="emailInput.invalid && emailInput.touched" class="error-message">
+              Please enter a valid email address
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-group">
+              <i class="fa fa-lock"></i>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                [(ngModel)]="password"
+                required
+                minlength="6"
+                #passwordInput="ngModel"
+                placeholder="Enter your password"
+              >
+            </div>
+            <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error-message">
+              Password must be at least 6 characters long
+            </div>
+          </div>
+
+          <div class="form-options">
+            <label class="remember-me">
+              <input type="checkbox"> Remember me
+            </label>
+            <a href="#" class="forgot-password">Forgot Password?</a>
+          </div>
+
+          <button type="submit" [disabled]="loginForm.invalid" class="primary-button">
+            <i class="fa fa-sign-in"></i> Sign In
+          </button>
+        </form>
+
+        <div class="auth-footer">
+          <p>Don't have an account? <a [routerLink]="['/register']">Sign up</a></p>
         </div>
       </div>
-
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          [(ngModel)]="password"
-          required
-          minlength="6"
-          #passwordInput="ngModel"
-          placeholder="Enter your password"
-        >
-        <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error-message">
-          Password must be at least 6 characters long
-        </div>
-      </div>
-
-      <button type="submit" [disabled]="loginForm.invalid">Login</button>
-
-      <div class="register-link">
-        <p>Don't have an account? <a [routerLink]="['/register']">Register now</a></p>
-      </div>
-    </form>
-  </div>
+    </div>
+  </main>
 </div>
