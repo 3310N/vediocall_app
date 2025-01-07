@@ -1,0 +1,82 @@
+/* src/app/videocall/videocall.component.css */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f1f1f1;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.image-container {
+  flex: 1;
+  max-width: 800px;
+}
+
+.connected-users {
+  flex: 1;
+  max-width: 350px;
+}
+
+.connected-users h2 {
+  margin-bottom: 20px;
+}
+
+.connected-users ul {
+  list-style: none;
+  padding: 0;
+}
+
+.connected-users li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.new-meeting {
+  margin-bottom: 20px;
+}
+
+.new-meeting button {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.join-meeting {
+  margin-top: 10px;
+}
+
+.join-meeting input[type="text"] {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.join-meeting button {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#endMeetingBtn {
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

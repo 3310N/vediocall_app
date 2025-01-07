@@ -1,0 +1,45 @@
+<!-- src/app/index/index.component.html -->
+<div class="container">
+  <header>
+    <h1>Welcome to Video Call App</h1>
+    <nav>
+      <ng-container *ngIf="!isLoggedIn">
+        <a [routerLink]="['/login']">Login</a>
+        <a [routerLink]="['/register']">Register</a>
+      </ng-container>
+      <ng-container *ngIf="isLoggedIn">
+        <span>Welcome, {{ currentUser?.username }}</span>
+        <a href="javascript:void(0)" (click)="logout()">Logout</a>
+      </ng-container>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <h2>Start a Video Call Now</h2>
+      <p>Connect with anyone, anywhere with our secure video calling platform.</p>
+      <button (click)="startVideoCall()" class="cta-button">
+        Start Video Call
+      </button>
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <h3>High Quality Video</h3>
+        <p>Crystal clear video quality for the best experience.</p>
+      </div>
+      <div class="feature">
+        <h3>Secure Connection</h3>
+        <p>End-to-end encrypted calls for your privacy.</p>
+      </div>
+      <div class="feature">
+        <h3>Easy to Use</h3>
+        <p>Simple interface for hassle-free calls.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Video Call App. All rights reserved.</p>
+  </footer>
+</div>

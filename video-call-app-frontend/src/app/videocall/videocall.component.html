@@ -1,0 +1,23 @@
+<!-- src/app/videocall/videocall.component.html -->
+<div class="video-container">
+  <div id="root" style="width: 100vw; height: 100vh;"></div>
+
+  <div class="image-container">
+    <video id="localVideo" autoplay muted></video>
+    <video id="remoteVideo" autoplay></video>
+  </div>
+
+  <div class="connected-users">
+    <h2>Connected Users</h2>
+    <ul id="userList"></ul>
+  </div>
+
+  <div class="new-meeting">
+    <button id="endMeetingBtn">End Meeting</button>
+  </div>
+
+  <div class="join-meeting">
+    <input type="text" id="meetingId" placeholder="Enter Meeting ID">
+    <button id="joinMeetingBtn">Join</button>
+  </div>
+</div>
