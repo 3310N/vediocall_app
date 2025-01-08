@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -17,24 +18,30 @@ public class VideocallApplication implements WebMvcConfigurer {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(UserService userService) {
+    public CommandLineRunner commandLineRunner(UserService userService, PasswordEncoder passwordEncoder) {
         return args -> {
             userService.registerUser(User.builder()
-                    .username("Salem")
+                    .firstname("Salem")
+                    .lastname("Salem")
                     .email("salem@mail.com")
-                    .password("test")
+                    .password(passwordEncoder.encode("test"))
+                    .status("OFFLINE")
                     .build());
 
             userService.registerUser(User.builder()
-                    .username("Mahdi")
+                    .firstname("Mahdi")
+                    .lastname("Mahdi")
                     .email("mahdi@mail.com")
-                    .password("test")
+                    .password(passwordEncoder.encode("test"))
+                    .status("OFFLINE")
                     .build());
 
             userService.registerUser(User.builder()
-                    .username("Ayman")
+                    .firstname("Ayman")
+                    .lastname("Ayman")
                     .email("ayman@mail.com")
-                    .password("test123456")
+                    .password(passwordEncoder.encode("test123456"))
+                    .status("OFFLINE")
                     .build());
         };
     }
@@ -42,7 +49,7 @@ public class VideocallApplication implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:4200") // Adjust this to your frontend's URL
+                .allowedOrigins("http://localhost:4200")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
     }
 }

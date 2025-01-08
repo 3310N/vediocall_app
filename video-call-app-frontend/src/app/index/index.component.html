@@ -11,7 +11,7 @@
         <a [routerLink]="['/register']" class="nav-button">Get Started</a>
       </ng-container>
       <ng-container *ngIf="isLoggedIn">
-        <span class="user-welcome">Welcome, {{ currentUser?.username }}</span>
+        <span class="user-welcome">Welcome, {{ currentUser?.firstname }}</span>
         <a href="javascript:void(0)" (click)="logout()" class="nav-link">Logout</a>
       </ng-container>
     </nav>

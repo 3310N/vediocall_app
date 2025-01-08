@@ -1,9 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+
+interface AuthUser {
+  token: string;
+  email: string;
+  firstname: string;
+  lastname: string;
+}
 
 @Component({
   selector: 'app-index',
@@ -12,19 +19,26 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css']
 })
-export class IndexComponent {
+export class IndexComponent implements OnInit {
   meetingId: string = '';
   isLoggedIn: boolean = false;
-  currentUser: any = null;
+  currentUser: AuthUser | null = null;
 
   constructor(
     private authService: AuthService,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.isLoggedIn = this.authService.isLoggedIn();
     if (this.isLoggedIn) {
-      this.currentUser = this.authService.getCurrentUser();
+      this.currentUser = this.authService.currentUserValue;
     }
+
+    this.authService.currentUser.subscribe(user => {
+      this.currentUser = user;
+      this.isLoggedIn = !!user;
+    });
   }
 
   startVideoCall() {
@@ -49,15 +63,7 @@ export class IndexComponent {
   }
 
   logout() {
-    this.authService.logout().subscribe({
-      next: () => {
-        this.isLoggedIn = false;
-        this.currentUser = null;
-        this.router.navigate(['/login']);
-      },
-      error: (error) => {
-        console.error('Logout error:', error);
-      }
-    });
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

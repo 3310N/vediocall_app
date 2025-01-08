@@ -18,15 +18,15 @@
 
         <form class="auth-form" (ngSubmit)="onSubmit()">
           <div class="form-group">
-            <label for="name">Full Name</label>
+            <label for="firstname">Full Name</label>
             <div class="input-group">
               <i class="fa fa-user"></i>
               <input 
                 type="text" 
-                id="name" 
-                [(ngModel)]="name" 
-                name="name" 
-                placeholder="Enter your full name"
+                id="firstname" 
+                [(ngModel)]="firstname" 
+                name="firstname" 
+                placeholder="Enter your first name"
                 required>
             </div>
           </div>
@@ -80,7 +80,7 @@
             </label>
           </div>
 
-          <button type="submit" class="primary-button" [disabled]="!isFormValid()">
+          <button type="submit" class="primary-button" [disabled]="isFormValid()">
             <i class="fa fa-user-plus"></i>
             Create Account
           </button>

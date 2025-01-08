@@ -6,27 +6,30 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/users")
 @RequiredArgsConstructor
 @Slf4j
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody Map<String, String> request) {
-        log.info("Registering user: {}", request.get("username"));
+        log.info("Registering user: {} {}", request.get("firstname"), request.get("lastname"));
         User user = User.builder()
-                .username(request.get("username"))
+                .firstname(request.get("firstname"))
+                .lastname(request.get("lastname"))
                 .email(request.get("email"))
-                .password(request.get("password"))
+                .password(passwordEncoder.encode(request.get("password")))
                 .status("OFFLINE")
                 .build();
         return ResponseEntity.ok(userService.registerUser(user));
@@ -37,16 +40,16 @@ public class UserController {
         return ResponseEntity.ok(userService.loginUser(request.get("email")));
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<Void> logout(@RequestBody Map<String, String> request) {
-        User user = userService.loginUser(request.get("email"));
-        userService.updateStatus(user.getId(), "OFFLINE");
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/users")
+    @GetMapping
     public ResponseEntity<List<User>> findAll() {
         return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    @PostMapping("/status")
+    public ResponseEntity<Void> updateStatus(@RequestBody Map<String, String> request) {
+        User user = userService.loginUser(request.get("email"));
+        userService.updateStatus(user.getId(), request.get("status"));
+        return ResponseEntity.ok().build();
     }
 
     @ExceptionHandler(Exception.class)

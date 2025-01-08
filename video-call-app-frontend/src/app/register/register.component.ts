@@ -13,7 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  name: string = '';
+  firstname: string = '';
+  lastname: string = '';
   email: string = '';
   password: string = '';
   confirmPassword: string = '';
@@ -33,21 +34,17 @@ export class RegisterComponent {
       return;
     }
 
-    this.authService.register(this.name, this.email, this.password).subscribe({
+    this.authService.register(this.firstname, this.lastname, this.email, this.password).subscribe({
       next: () => {
         this.router.navigate(['/login']);
       },
-      error: (error) => {
-        this.error = error.message || 'Registration failed';
+      error: (err: any) => {
+        this.error = err.message || 'Registration failed';
       }
     });
   }
 
   isFormValid(): boolean {
-    return this.name.trim() !== '' && 
-           this.email.trim() !== '' && 
-           this.password.trim() !== '' && 
-           this.confirmPassword.trim() !== '' && 
-           this.agreeToTerms;
+    return this.firstname.trim() !== '' && this.lastname.trim() !== '' && this.email.trim() !== '' && this.password.trim() !== '' && this.confirmPassword.trim() !== '' && this.agreeToTerms;
   }
 }

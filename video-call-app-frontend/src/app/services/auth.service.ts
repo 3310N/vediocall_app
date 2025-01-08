@@ -1,51 +1,71 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, map } from 'rxjs';
+import { Router } from '@angular/router';
+
+export interface AuthResponse {
+  token: string;
+  email: string;
+  firstname: string;
+  lastname: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/auth';
-  private currentUser: any = null;
+  private currentUserSubject: BehaviorSubject<AuthResponse | null>;
+  public currentUser: Observable<AuthResponse | null>;
 
-  constructor(private http: HttpClient) {}
+  private apiUrl = 'http://localhost:8080/api';
 
-  register(username: string, email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, { username, email, password });
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {
+    this.currentUserSubject = new BehaviorSubject<AuthResponse | null>(
+      JSON.parse(localStorage.getItem('currentUser') || 'null')
+    );
+    this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  login(email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, { email, password }).pipe(
-      tap(user => {
-        this.currentUser = user;
-        localStorage.setItem('currentUser', JSON.stringify(user));
+  public get currentUserValue(): AuthResponse | null {
+    return this.currentUserSubject.value;
+  }
+
+  register(firstname: string, lastname: string, email: string, password: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/auth/register`, {
+      firstname,
+      lastname,
+      email,
+      password
+    });
+  }
+
+  login(email: string, password: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/auth/authenticate`, {
+      email,
+      password
+    }).pipe(
+      map(response => {
+        localStorage.setItem('currentUser', JSON.stringify(response));
+        this.currentUserSubject.next(response);
+        return response;
       })
     );
   }
 
-  logout(): Observable<any> {
-    const user = this.getCurrentUser();
-    return this.http.post(`${this.apiUrl}/logout`, { email: user.email }).pipe(
-      tap(() => {
-        this.currentUser = null;
-        localStorage.removeItem('currentUser');
-      })
-    );
-  }
-
-  getCurrentUser(): any {
-    if (!this.currentUser) {
-      const storedUser = localStorage.getItem('currentUser');
-      if (storedUser) {
-        this.currentUser = JSON.parse(storedUser);
-      }
-    }
-    return this.currentUser;
+  logout(): void {
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
+    this.router.navigate(['/login']);
   }
 
   isLoggedIn(): boolean {
-    return !!this.getCurrentUser();
+    return !!this.currentUserValue;
+  }
+
+  getToken(): string | null {
+    return this.currentUserValue?.token || null;
   }
 }
